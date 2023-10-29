@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>findpw</title>
+</head>
+<body>
+    <h1>비번바꿀거?</h1>
+    <form id = "myForm" method="post" action="/findpw">
+        <table>
+            <tr>
+                <td><label>ID : </label></td>
+                <td><input type="text" name="id"></td>
+            </tr>
+            <tr>
+                <td><label>학번 : </label></td>
+                <td><input type="text" name="student_id"></td>
+            </tr>
+            <tr>
+                <td><label>이메일 : </label></td>
+                <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="비번재설정" name=""></td>
+            </tr>
+        </table>
+    </form>
+    <button onclick="location.href='login.html'">로그인으로 복귀</button ><br>             
+</body>
+</html>

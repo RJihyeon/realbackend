@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example</title>
+</head>
+<body>
+    <h1>메인페이지입니다.</h1>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <a href = "/logout">Log out</a><br>
+    <button onclick="sendUsername()">예약 홈피</button >
+
+<script>
+    function sendUsername() {
+        const url = `/reserve?userid=${encodeURIComponent("12345")}`;
+        window.location.href = url; // URL로 이동
+    }
+</script>
+</body>
+</html>

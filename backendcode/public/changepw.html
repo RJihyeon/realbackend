@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>비밀번호 변경하세요</h1>
+    <form id = "myForm" method="post" action="/changepw">
+        <table>
+            <tr>
+                <td><label>본인확인용 ID : </label></td>
+                <td><input type="text" name="id"></td>
+            </tr>
+            <tr>
+                <td><label>새로운 비밀번호 : </label></td>
+                <td><input type="text" name="password"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="비번재설정하기" name=""></td>
+            </tr>
+        </table>
+    </form>
+    <button onclick="location.href='login.html'">로그인으로 복귀</button ><br>  
+</body>
+</html>

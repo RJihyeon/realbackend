@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>findid</title>
+</head>
+<body>
+    <h1>아이디 찾는 페이지</h1>
+    <form id = "myForm" method="post" action="/findid">
+        <table>
+            <tr>
+                <td><label>이름 : </label></td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td><label>학번 : </label></td>
+                <td><input type="text" name="student_id"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="아이디찾기"></td>
+            </tr>
+ 
+        </table>
+    </form>
+    <button onclick="location.href='login.html'">로그인으로 복귀</button ><br>      
+<script>
+    // 폼이 제출될 때 이벤트 핸들러를 등록
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // 기본 폼 제출 동작을 막음
+
+        // 폼 데이터를 가져오기
+        var form = event.target;
+        var formData = new FormData(form);
+        var jsonObject = {};
+        formData.forEach((value, key) => {
+            jsonObject[key] = value;
+        });
+        // 서버에 POST 요청 보내기
+        fetch('/findid', {
+            method: 'POST',
+            body: JSON.stringify(jsonObject), // JSON 데이터로 변환하여 body에 설정
+            headers: {
+                'Content-Type': 'application/json' // Content-Type 설정
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const parsedData = JSON.parse(data);
+            window.alert(parsedData.userId);
+        })
+        .catch(error => {
+            console.error('오류 발생:', error);
+        });
+    });
+</script>               
+</body>
+</html>

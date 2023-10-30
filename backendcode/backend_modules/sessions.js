@@ -80,7 +80,7 @@ router.post('/login', (req, res) => {
 // 회원가입
 router.post('/signup', (req, res) => {
     let info = [req.body.id, req.body.password, req.body.phone_num, req.body.student_id, req.body.name,
-        req.body.affiliation, req.body.division];
+        req.body.affiliation, req.body.division, req.body.email];
 
     // password를 해싱한다.
     bcrypt.genSalt(saltRounds, (err, salt) => {
@@ -96,7 +96,7 @@ router.post('/signup', (req, res) => {
             else {
                 // req에서 사용자가 입력한 비밀번호를 해싱하여 info의 정보를 바꾼다.
                 info[1] = hash;
-                const query = 'INSERT INTO users(id, password, phone_num, student_id, name, affiliation, division) VALUE(?,?,?,?,?,?,?)';
+                const query = 'INSERT INTO users(id, password, phone_num, student_id, name, affiliation, division, email) VALUE(?,?,?,?,?,?,?,?)';
                 auth_functions.signup(query, info, (err, results) => {
                     // 조건 : 둘다 null인 건 signup에 성공하여 유저의 정보가 DB에 전송됐음을 의미한다.
                     if (err === null && results === null) {

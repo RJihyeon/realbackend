@@ -1,5 +1,5 @@
 // DB 연결 로직
-
+// 여기서 db관련 설정 가능 그리고 데이터베이스랑 테이블도 없으면 추가해줌
 const mysql = require('mysql2');
 
 // connection to db

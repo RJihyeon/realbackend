@@ -113,7 +113,7 @@ function openreserve(io) {
                 io.emit('approveReserve2', row[0]); //클라이언트에서도 이벤트이름 : approveReserve2
               }
           }); 
-              //이거 그냥은 작동안할 예정 -> update는 원래 row에 아무것도 반환해서 row가 null이기 때문 -> 이건 나도 뭔지 모르겠네 오랜만에 보니                                   //-> 따라서 비효율적이지만 또 query하는거임
+              //이거 그냥은 작동안함 -> update는 원래 row에 아무것도 반환해서 row가 null이기 때문 -> 따라서 비효율적이지만 또 query하는거임
         });
       });
       // 다른 소켓 이벤트 처리 - makeReservation말고 여러개 만들수 있음
@@ -125,7 +125,6 @@ function openreserve(io) {
     });
   };
 
-  //이제 해야할 것 이벤트를 3가지로 분류 - 예약(대기), 취소, 승인 -> 각각마다 socket.on으로 케이스 분류해서 프로그래밍 예정
 
   module.exports = {
     openreserve

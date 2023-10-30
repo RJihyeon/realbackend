@@ -233,4 +233,13 @@ router.route('/reserve').get(
     }
   );
 
+router.route('/admin').get(
+    function(req, res) {
+        console.log('/admin 라우팅 함수호출 됨');
+        const filePath = path.join(__dirname, '..', 'public', 'admin.html');
+        res.sendFile(filePath);
+    }
+);
+
+
 module.exports = router;

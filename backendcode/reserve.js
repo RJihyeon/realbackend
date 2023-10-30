@@ -72,7 +72,7 @@ function openreserve(io) {
           if(row.length > 0) {
             const firstdata = row[0].data;
             const jsondata = JSON.parse(firstdata);
-            const userEmail = jsondata.user.email;
+            const userEmail = data[5];
             const studentID = jsondata.user.student_id; //일단 학번으로 본인확인하는 느낌
             const state = data[3] + '00'; //그 data[3]시간대에 대기 상태라는것을 확인
             var stinfo = [data[0], data[1], data[2], studentID, state];
@@ -99,8 +99,7 @@ function openreserve(io) {
           }
         });
       });
-      socket.on('approveReservation', (data) => {//클라이언트쪽에서 관리자의 승인이 넘어오면 db를 갱신하고 클라이언트에 반환
-        console.log(data[5]);
+      socket.on('approveReservation', (data) => {//클라이언트쪽에서 관리자의 승인이 넘어오면 db를 갱신하고 클라이언트에 반환 -> state가 200에서 210으로 바뀌는 느낌
         db.query(`UPDATE reserve SET space${data[4]} = ${data[3] + "10"} WHERE phone_num =  ${data[5]}`, function(err, row) {//세션정보에 담긴 번호를 가져옴 바로 DB에서
           if(err) {// Temp_Table 의 field1의 값이 'data2' 인 행의 field3의 값을 '변경된 값'으로 수정 해라.
             console.log(err);

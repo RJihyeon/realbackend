@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 
 // 본인 Gmail 계정
-const EMAIL = "";//너 이메일
-const EMAIL_PW = "";//너 비번 -> 앱 비밀번호로 해야함 - 이거 총동연 계정으로 함
+const EMAIL = "k591180809@gmail.com";//너 이메일
+const EMAIL_PW = "fjbg wxyb shaj hkzt";//너 비번 -> 앱 비밀번호로 해야함 - 이거 총동연 계정으로 함
 
 // transport 생성
 const transport = nodemailer.createTransport({

@@ -91,15 +91,15 @@ function openreserve(io) {
                       host: 'smtp.naver.com',  // SMTP 서버명
 	                    port: 465,  // SMTP 포트
                       auth: {
-                          user: 'k59118',
-                          pass: 'junhee1105',
+                          user: '',
+                          pass: '',
                       },
                     });
 
                     // 전송할 email 내용 작성
                     var mailOptions = {
-                      from: 'k59118@naver.com',
-                      to: 'rhdpdms_@naver.com',
+                      from: '',
+                      to: '',
                       subject: "테스트 이메일",
                       text: "",
                     };

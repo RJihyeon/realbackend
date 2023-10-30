@@ -43,6 +43,29 @@ function sendEmail(receiverEmail, callback) {
     });
 }
 
+function sendEmailmanager(receiverEmail, callback) {
+    // 전송할 email 내용 작성
+    const mailOptions = {
+        from: EMAIL,
+        to: receiverEmail,
+        subject: "예약취소 안내입니다.",
+        text: "귀하의 예약이 취소됨을 알려드립니다.",
+    };
+
+    // email 전송
+    transport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+            callback(error, null);
+        } else {
+            console.log(info);
+            console.log("send mail success!");
+            callback(null, info);
+        }
+    });
+}
+
 module.exports = {
-    sendEmail
+    sendEmail,
+    sendEmailmanager
 };

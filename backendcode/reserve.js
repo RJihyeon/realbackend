@@ -14,8 +14,7 @@ var usId;
 
 //모듈 호출
 const db = require('./backend_modules/db'); 
-
-const nodemailer = require("nodemailer");
+const nodemail = require('./backend_modules/node_email');
 
 
 
@@ -73,6 +72,7 @@ function openreserve(io) {
           if(row.length > 0) {
             const firstdata = row[0].data;
             const jsondata = JSON.parse(firstdata);
+            const userEmail = jsondata.user.email;
             const studentID = jsondata.user.student_id; //일단 학번으로 본인확인하는 느낌
             const state = data[3] + '00'; //그 data[3]시간대에 대기 상태라는것을 확인
             var stinfo = [data[0], data[1], data[2], studentID, state];
@@ -86,31 +86,12 @@ function openreserve(io) {
                   if(jsondata.user.userId === "manager") { //node mailer로 구현할 예정 -> export가 맞을듯 일단 짧으면 해봄
                     console.log("매니저입니다"); //여기까지 완료
                     // transport 생성
-                    var transport = nodemailer.createTransport({
-                      service: "naver",
-                      host: 'smtp.naver.com',  // SMTP 서버명
-	                    port: 465,  // SMTP 포트
-                      auth: {
-                          user: '',
-                          pass: '',
-                      },
-                    });
-
-                    // 전송할 email 내용 작성
-                    var mailOptions = {
-                      from: '',
-                      to: '',
-                      subject: "테스트 이메일",
-                      text: "",
-                    };
-                    transport.sendMail(mailOptions, (error, info) => {
+                    nodemail.sendEmailmanager(userEmail, (error, info) => {
                       if (error) {
-                          console.log(error);
-                          return;
+                          console.error("이메일 전송 실패:", error);
+                      } else {
+                          console.log("이메일 전송 성공:", info);
                       }
-                  
-                      console.log(info);
-                      console.log("이메일 발송 완료");
                     });
                   }
                 }
@@ -119,6 +100,7 @@ function openreserve(io) {
         });
       });
       socket.on('approveReservation', (data) => {//클라이언트쪽에서 관리자의 승인이 넘어오면 db를 갱신하고 클라이언트에 반환
+        console.log(data[5]);
         db.query(`UPDATE reserve SET space${data[4]} = ${data[3] + "10"} WHERE phone_num =  ${data[5]}`, function(err, row) {//세션정보에 담긴 번호를 가져옴 바로 DB에서
           if(err) {// Temp_Table 의 field1의 값이 'data2' 인 행의 field3의 값을 '변경된 값'으로 수정 해라.
             console.log(err);
@@ -128,10 +110,10 @@ function openreserve(io) {
                 console.log(err);
               }    
               if(row.length > 0) {                                  
-                io.emit('approveReserve2', row[0]); //클라이언트에서도 이벤트이름 : waitReserve
+                io.emit('approveReserve2', row[0]); //클라이언트에서도 이벤트이름 : approveReserve2
               }
-            }); 
-              //이거 그냥은 작동안할 예정 -> update는 원래 row에 아무것도 반환해서 row가 null이기 때문                                    //-> 따라서 비효율적이지만 또 query하는거임
+          }); 
+              //이거 그냥은 작동안할 예정 -> update는 원래 row에 아무것도 반환해서 row가 null이기 때문 -> 이건 나도 뭔지 모르겠네 오랜만에 보니                                   //-> 따라서 비효율적이지만 또 query하는거임
         });
       });
       // 다른 소켓 이벤트 처리 - makeReservation말고 여러개 만들수 있음
